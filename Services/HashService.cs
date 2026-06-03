@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using System.Text;
+
 namespace MerkleCloudIntegrity.Services;
 
 /// <summary>
@@ -12,7 +15,10 @@ public sealed class HashService
     /// <returns>The hexadecimal SHA-256 hash value.</returns>
     public string ComputeHash(byte[] data)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(data);
+
+        var hashBytes = SHA256.HashData(data);
+        return Convert.ToHexString(hashBytes).ToLowerInvariant();
     }
 
     /// <summary>
@@ -23,6 +29,10 @@ public sealed class HashService
     /// <returns>The hexadecimal SHA-256 parent hash.</returns>
     public string ComputeCombinedHash(string leftHash, string rightHash)
     {
-        throw new NotImplementedException();
+        ArgumentException.ThrowIfNullOrWhiteSpace(leftHash);
+        ArgumentException.ThrowIfNullOrWhiteSpace(rightHash);
+
+        var combinedHashInput = Encoding.UTF8.GetBytes(leftHash + rightHash);
+        return ComputeHash(combinedHashInput);
     }
 }

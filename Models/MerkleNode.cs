@@ -21,6 +21,11 @@ public sealed class MerkleNode
     public MerkleNode? Right { get; set; }
 
     /// <summary>
+    /// Gets or sets the parent node.
+    /// </summary>
+    public MerkleNode? Parent { get; set; }
+
+    /// <summary>
     /// Gets or sets the source block index when the node represents a leaf.
     /// </summary>
     public int? BlockIndex { get; set; }

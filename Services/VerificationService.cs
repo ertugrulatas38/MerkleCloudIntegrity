@@ -27,6 +27,23 @@ public sealed class VerificationService
     /// <returns>True when the proof is valid; otherwise, false.</returns>
     public bool VerifyProof(DataBlock block, IReadOnlyList<ProofItem> proof, string expectedRootHash)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(block);
+        ArgumentNullException.ThrowIfNull(proof);
+
+        if (string.IsNullOrWhiteSpace(expectedRootHash))
+        {
+            return false;
+        }
+
+        var computedHash = _hashService.ComputeHash(block.Content);
+
+        foreach (var proofItem in proof)
+        {
+            computedHash = proofItem.Direction == ProofItemDirection.Left
+                ? _hashService.ComputeCombinedHash(proofItem.SiblingHash, computedHash)
+                : _hashService.ComputeCombinedHash(computedHash, proofItem.SiblingHash);
+        }
+
+        return string.Equals(computedHash, expectedRootHash, StringComparison.OrdinalIgnoreCase);
     }
 }
