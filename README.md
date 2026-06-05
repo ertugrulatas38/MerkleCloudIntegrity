@@ -170,10 +170,10 @@ Bu proje, Merkle Tree tabanlı veri bütünlüğü ve hash tabanlı imza sisteml
 
 Elde edilen CSV çıktıları:
 
-- IEEE formatındaki makalelerde tablo oluşturmak,
-- traversal optimizasyonlarını karşılaştırmak,
-- dosya boyutu arttıkça performans değişimini incelemek,
-- bellek kullanımı ve doğrulama süresi ilişkisini değerlendirmek
+- Makalelerde tablo oluşturmak,
+- Traversal optimizasyonlarını karşılaştırmak,
+- Dosya boyutu arttıkça performans değişimini incelemek,
+- Bellek kullanımı ve doğrulama süresi ilişkisini değerlendirmek
 
 için kullanılabilir.
 
