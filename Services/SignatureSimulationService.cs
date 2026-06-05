@@ -7,7 +7,7 @@ using MerkleCloudIntegrity.Models;
 namespace MerkleCloudIntegrity.Services;
 
 /// <summary>
-/// Simulates Merkle-based signature generation and verification workflows.
+/// Runs the hash-based signature experiment over a Merkle tree of one-time leaf values.
 /// </summary>
 public sealed class SignatureSimulationService
 {
@@ -35,7 +35,7 @@ public sealed class SignatureSimulationService
     }
 
     /// <summary>
-    /// Runs classical and cached traversal signature simulations and exports the results to CSV.
+    /// Runs the signature experiment with classical and cached authentication-path generation.
     /// </summary>
     /// <param name="csvPath">The CSV export path.</param>
     /// <param name="leafIndex">The leaf index selected as the simulated private key.</param>
@@ -65,7 +65,7 @@ public sealed class SignatureSimulationService
     }
 
     /// <summary>
-    /// Exports signature simulation results to a CSV file.
+    /// Writes signature measurements in the column order used by the paper tables.
     /// </summary>
     /// <param name="results">The simulation results to export.</param>
     /// <param name="csvPath">The output CSV path.</param>
@@ -123,6 +123,7 @@ public sealed class SignatureSimulationService
         GC.Collect();
         var memoryBefore = GC.GetTotalMemory(forceFullCollection: true);
 
+        // The first access fills the authentication-path cache; the measured call below tests reuse.
         _traversalService.GenerateCachedProof(root, leafIndex);
 
         var stopwatch = Stopwatch.StartNew();

@@ -1,5 +1,10 @@
 using MerkleCloudIntegrity.Services;
 
+const int SignatureLeafIndex = 2;
+const int SignatureLeafCount = 1024;
+const string OutputFolderName = "merkle-cloud-integrity-signature";
+const string OutputFileName = "signature-simulation-results.csv";
+
 /// <summary>
 /// Application entry point for the MerkleCloudIntegrity console application.
 /// </summary>
@@ -15,9 +20,12 @@ var signatureSimulationService = new SignatureSimulationService(
     verificationService,
     traversalService);
 
-var outputDirectory = Path.Combine(Path.GetTempPath(), "merkle-cloud-integrity-signature");
-var csvPath = Path.Combine(outputDirectory, "signature-simulation-results.csv");
-signatureSimulationService.RunSignatureSimulation(csvPath);
+var outputDirectory = Path.Combine(Path.GetTempPath(), OutputFolderName);
+var csvPath = Path.Combine(outputDirectory, OutputFileName);
+signatureSimulationService.RunSignatureSimulation(
+    csvPath,
+    SignatureLeafIndex,
+    SignatureLeafCount);
 
 Console.WriteLine("Signature simulation completed");
 Console.WriteLine($"CSV path: {csvPath}");

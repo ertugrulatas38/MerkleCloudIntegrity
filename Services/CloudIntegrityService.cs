@@ -4,12 +4,12 @@ using MerkleCloudIntegrity.Models;
 namespace MerkleCloudIntegrity.Services;
 
 /// <summary>
-/// Simulates cloud-side file block storage and Merkle proof based integrity checking.
+/// Models a simple remote storage scenario where local file blocks are copied, audited, and checked for tampering.
 /// </summary>
 public sealed class CloudIntegrityService
 {
     /// <summary>
-    /// Defines the default file block size used by the simulation.
+    /// Defines the 1 KB block size used across the reproducible file experiments.
     /// </summary>
     public const int DefaultBlockSize = 1024;
 
@@ -28,7 +28,7 @@ public sealed class CloudIntegrityService
     }
 
     /// <summary>
-    /// Runs a file integrity simulation by storing blocks, proving one block, and detecting tampering.
+    /// Runs a file integrity pass by storing blocks, proving one selected block, and replaying the proof after mutation.
     /// </summary>
     /// <param name="filePath">The path of the file used for the simulation.</param>
     /// <param name="targetBlockIndex">The block index selected for integrity verification.</param>
